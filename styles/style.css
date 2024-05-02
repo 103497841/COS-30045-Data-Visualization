@@ -1,0 +1,163 @@
+:root {
+    --body-bg: #000;
+    
+    --nav-bg: rgb(25, 85, 145);
+    --burger-nav-bg: #345;
+
+    --main-bg: #444;
+
+    --text-clr: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+/*desktop*/
+body {
+    margin: 0;
+    background-color: var(--body-bg);
+    color: var(--text-clr);
+
+    overflow-x: hidden; /*prevent horizontal scrollbar caused by the hidden hamburger nav items*/
+}
+
+
+/*------------------------------nav------------------------------*/
+header {
+    /* position: sticky;
+    top: 0; */
+    background-color: var(--nav-bg);
+
+    display: flex;
+    align-items: center; /*vertical align nav items and hamburger*/
+    padding: 0 8%;
+}
+
+header img {
+    width: 12rem; /*image size*/
+    margin-right: 2rem; /*make nav item button not touch image at curtain screen size*/
+}
+
+header nav {
+    width: 100%;
+}
+
+.nav-main { /*nav background*/
+    list-style-type: none;
+
+    margin: 0;
+    padding: 0;
+    justify-content: center; /*put nav items at center*/
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 8rem); /*auto create nav items, size of nav item button*/
+    gap: 2%;
+}
+
+.nav-main li a { /*nav item button*/
+    display: block;
+    border-radius: 100vh;
+    margin: 0 5px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.nav-main li a:is(:link, :visited, :hover, :active) {
+    text-decoration: none;
+    color: var(--text-clr);
+}
+
+.nav-main li a:is(:hover) { /*nav item hover effect*/
+    background-color: #777;
+}
+
+.nav-main li:has([aria-current="page"]) a { /*nav item current page, aria-current set from js*/
+    background-color: firebrick;
+}
+/*------------------------------nav------------------------------*/
+
+
+main {
+    background-color: var(--main-bg);
+}
+
+footer {
+    background-color: var(--main-bg);
+}
+
+
+
+/*mobile*/
+@media (max-width: 768px) {
+    /*------------------------------nav------------------------------*/
+    header {
+        padding: 0 4%;
+    }
+
+    header img {
+        width: 10rem; /*image size*/
+    }
+
+    .hamburger {
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .hamburger .bar {
+        /*hamburger icon*/
+        width: 30px;
+        height: 3px;
+        background-color: #fff;
+        /*hamburger icon*/
+
+        display: block;
+        margin: 5px 0;
+        margin-left: auto; /*right align hamburger*/
+        transition: all 0.25s ease-in-out; /*animation*/
+    }
+
+    /*hamburger animation*/
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    /*hamburger animation*/
+
+    header nav {
+        background-color: var(--burger-nav-bg);
+        padding: 0.5rem;
+        
+        transition: all 0.5s ease-in-out; /*animation*/
+
+        /*dropdown content*/
+        position: absolute;
+        top: 80px;
+        left: 100vw; /*animation - hide nav items off the screen*/
+        right: 0;
+        /*dropdown content*/
+    }
+
+    header nav.active {
+        left: 0; /*animation - show nav items*/
+    }
+
+    .nav-main {
+        display: block;
+        width: 100%;
+    }
+
+    .nav-main li {
+        width: 16rem; /*size of nav item button*/
+        margin: 0 auto; /*align center*/
+    }
+    /*------------------------------nav------------------------------*/
+}
