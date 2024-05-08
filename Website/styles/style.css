@@ -5,7 +5,7 @@
     --nav-current-bg: #246;
     --nav-hover-bg: #47C;
 
-    --data-bg: #666;
+    --banner-bg: #666;
 
     --text-color: #fff;
 }
@@ -134,6 +134,17 @@ header {
     left: 10%;
     top: 50%; /*put text in middle of image*/
     transform: translateY(-50%); /*put text in middle of image*/
+}
+
+
+.banner {
+    background-color: var(--banner-bg);
+    padding: 1rem;
+}
+
+.banner p {
+    margin: 0;
+    
 }
 
 
