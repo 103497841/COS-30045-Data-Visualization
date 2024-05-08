@@ -10,6 +10,10 @@
     --text-color: #fff;
 }
 
+body{
+    background-image: url (../images/background.jpg);
+}
+
 /* Mobile */
 body {
     margin: 0;
