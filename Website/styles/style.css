@@ -37,23 +37,24 @@ header {
 
 header img {
     width: 12rem; /*image size*/
-    margin-right: 2rem; /*make nav item button not touch image at curtain screen size*/
+    margin-right: auto; /*make nav item button not touch image at curtain screen size*/
 }
 
 header nav {
     width: 100%;
+    margin-left: auto;
 }
 
 .nav-main { /*nav background*/
-    list-style-type: none;
-
-    margin: 0;
-    padding: 0;
-    justify-content: center; /*put nav items at center*/
-
     display: grid;
-    grid-template-columns: repeat(auto-fit, 8rem); /*auto create nav items, size of nav item button*/
+    margin: 0;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); /*auto create nav items, size of nav item button*/
     gap: 2%;
+}
+
+.nav-main li {
+    list-style-type: none;
+    text-align: center;
 }
 
 .nav-main li a { /*nav item button*/
@@ -61,7 +62,6 @@ header nav {
     border-radius: 100vh;
     margin: 0 5px;
     padding: 10px 0;
-    text-align: center;
 }
 
 .nav-main li a:is(:link, :visited, :hover, :active) {
@@ -103,18 +103,20 @@ footer {
     .hamburger {
         width: 100%;
         cursor: pointer;
+
+        margin-left: auto; /* right align hamburger */
+        width: fit-content; /* right align hamburger */
     }
 
     .hamburger .bar {
         /*hamburger icon*/
+        display: block;
         width: 30px;
         height: 3px;
+        margin: 5px 0;
         background-color: #fff;
         /*hamburger icon*/
 
-        display: block;
-        margin: 5px 0;
-        margin-left: auto; /*right align hamburger*/
         transition: all 0.25s ease-in-out; /*animation*/
     }
 
@@ -134,29 +136,33 @@ footer {
 
     header nav {
         background-color: var(--burger-nav-bg);
-        padding: 0.5rem;
+        width: fit-content;
+        margin: 0;
+        padding: 1rem;
+        border-radius: 2rem 0 0 2rem;
         
         transition: all 0.5s ease-in-out; /*animation*/
 
         /*dropdown content*/
         position: absolute;
-        top: 80px;
-        left: 100vw; /*animation - hide nav items off the screen*/
-        right: 0;
+        top: 90px;
+        right: -100vw; /*animation - hide nav items off the screen*/
         /*dropdown content*/
     }
 
     header nav.active {
-        left: 0; /*animation - show nav items*/
+        right: 0; /*animation - show nav items*/
     }
 
     .nav-main {
-        display: block;
-        width: 100%;
+        padding: 0;
+        padding-bottom: 1rem;
+        grid-template-columns: 8rem;
+        row-gap: 2%;
     }
 
     .nav-main li {
-        width: 16rem; /*size of nav item button*/
+        width: 8rem; /*size of nav item button*/
         margin: 0 auto; /*align center*/
     }
     /*------------------------------nav------------------------------*/
