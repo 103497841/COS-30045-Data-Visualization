@@ -38,7 +38,7 @@ nav {
 
 .nav-img img {
     vertical-align: middle; /*center image*/
-    width: 12rem; /*image size*/
+    width: 8rem; /*image size*/
 }
 
 
@@ -119,6 +119,22 @@ nav {
 }
 
 
+header {
+    position: relative; /*Supports the text in position absolute*/
+    background-image: url(../images/background.jpg);
+    height: 30rem; /*image size*/
+    background-size: cover; /*only use 1 image*/
+    background-position: center; /*center the image*/
+}
+
+.header-text {
+    position: absolute; /*position absolute within the boudary of the header*/
+    left: 10%;
+    top: 50%; /*put text in middle of image*/
+    transform: translateY(-50%); /*put text in middle of image*/
+}
+
+
 /* Desktop */
 @media (min-width: 768px) {
     body {
@@ -127,6 +143,10 @@ nav {
 
     nav {
         grid-template-columns: 30% 70%;
+    }
+
+    .nav-img img {
+        width: 12rem; /*image size*/
     }
 
     .hamburger {
