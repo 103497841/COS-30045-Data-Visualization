@@ -8,6 +8,8 @@
     --banner-bg: #666;
 
     --text-color: #fff;
+
+    --footer-bg: rgb(25, 85, 145);
 }
 
 /* Mobile */
@@ -89,6 +91,8 @@ nav {
 
     display: grid;
     row-gap: 1.5rem;
+
+    z-index: 10; /*show nav links above background*/
 }
 
 .nav-main.active {
@@ -121,30 +125,36 @@ nav {
 
 header {
     position: relative; /*Supports the text in position absolute*/
-    background-image: url(../images/background.jpg);
+    background-image: url(../images/background.jpeg);
     height: 30rem; /*image size*/
     background-size: cover; /*only use 1 image*/
     background-position: center; /*center the image*/
-
-    z-index: -1;
 }
 
 .header-text {
     position: absolute; /*position absolute within the boudary of the header*/
-    left: 10%;
     top: 50%; /*put text in middle of image*/
     transform: translateY(-50%); /*put text in middle of image*/
 }
 
 
+.header-text, .banner, footer { /*content padding*/
+    padding: 1rem 10%;
+}
+
+
 .banner {
     background-color: var(--banner-bg);
-    padding: 1rem;
+    
 }
 
 .banner p {
     margin: 0;
-    
+}
+
+
+footer {
+    background-color: var(--footer-bg);
 }
 
 
