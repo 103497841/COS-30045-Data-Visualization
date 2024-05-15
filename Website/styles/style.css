@@ -1,15 +1,15 @@
 :root {
     --body-bg: #000;
 
-    --nav-bg: rgb(25, 85, 145);
+    --nav-bg: rgba(30, 60, 120, .5);
     --nav-current-bg: #246;
     --nav-hover-bg: #47C;
 
-    --banner-bg: #666;
+    --banner-bg: rgba(30, 60, 120, .5);
 
     --text-color: #fff;
 
-    --footer-bg: rgb(25, 85, 145);
+    --footer-bg: rgba(30, 60, 120, .5);
 }
 
 /* Mobile */
@@ -150,6 +150,15 @@ header {
 
 .banner p {
     margin: 0;
+}
+
+.size {
+    text-align: center;
+}
+
+#container {
+    width: 50%; /*size of svg display*/
+    
 }
 
 
