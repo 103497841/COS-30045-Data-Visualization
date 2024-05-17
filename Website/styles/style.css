@@ -107,6 +107,7 @@ nav {
 .nav-main li a {
     border-radius: 100vh;
     padding: 0.5rem 1.5rem;
+    white-space: nowrap; /*make text not go to new line if no space*/
 }
 
 .nav-main li a:is(:link, :visited, :hover, :active) {
@@ -152,13 +153,17 @@ header {
     margin: 0;
 }
 
-.size {
+.map-container {
     text-align: center;
 }
 
 #container {
     width: 50%; /*size of svg display*/
-    
+}
+
+
+#chart {
+    text-align: center;
 }
 
 
