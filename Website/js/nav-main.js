@@ -14,7 +14,7 @@ document.write('<nav>');
             document.write('<a href="index.html">Home</a>');
         document.write('</li>');
         document.write('<li>');
-            document.write('<a href="/" >Bar Chart</a>');
+            document.write('<a href="barchart.html" >Bar Chart</a>');
         document.write('</li>');
         document.write('<li>');
             document.write('<a href="/" >Stacked Bar Chart</a>');

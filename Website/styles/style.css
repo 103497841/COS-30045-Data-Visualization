@@ -22,6 +22,8 @@ body {
 
 
 nav {
+    position: sticky;
+    top: 0;
     background: var(--nav-bg);
     padding: 0 2rem;
 
@@ -30,6 +32,8 @@ nav {
 
     display: grid;
     grid-template-columns: 60% 40%;
+
+    z-index: 10; /*show nav background*/
 }
 
 
@@ -91,35 +95,42 @@ nav {
 
     display: grid;
     row-gap: 1.5rem;
-
-    z-index: 10; /*show nav links above background*/
 }
 
 .nav-main.active {
     right: 0; /*right align nav list*/
 }
 
-.nav-main li {
+.nav-sub {
+    display: grid;
+    margin: 0;
+    padding: 0;
+
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    row-gap: 1.5rem;
+}
+
+li {
     list-style: none;
     text-align: center; /*center nav items*/
 }
 
-.nav-main li a {
+li a {
     border-radius: 100vh;
     padding: 0.5rem 1.5rem;
     white-space: nowrap; /*make text not go to new line if no space*/
 }
 
-.nav-main li a:is(:link, :visited, :hover, :active) {
+li a:is(:link, :visited, :hover, :active) {
     text-decoration: none;
     color: var(--text-color);
 }
 
-.nav-main li:has([aria-current="page"]) a { /*nav item current page, aria-current set from js*/
+li:has([aria-current="page"]) a { /*nav item current page, aria-current set from js*/
     background-color: var(--nav-current-bg);
 }
 
-.nav-main li a:is(:hover) { /*nav item hover effect*/
+li a:is(:hover) { /*nav item hover effect*/
     background-color: var(--nav-hover-bg);
 }
 
@@ -162,7 +173,11 @@ header {
 }
 
 
-#chart {
+.chart-title {
+    text-align: center;
+}
+
+.chart {
     text-align: center;
 }
 
@@ -174,10 +189,6 @@ footer {
 
 /* Desktop */
 @media (min-width: 768px) {
-    body {
-        
-    }
-
     nav {
         grid-template-columns: 30% 70%;
     }

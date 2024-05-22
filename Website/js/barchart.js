@@ -1,43 +1,36 @@
 function init() {
-    d3.csv("csv/AusAmphetamine_C.csv").then(function(data) {
-        // Amphetamine = [];
-        // Year = [];
+    //csv file link, chart number
+    get_CSV_data("csv/AusAmphetamine_C.csv",1);
+
+    get_CSV_data("csv/AusCannabis_C.csv",2);
+}
+
+function get_CSV_data(csv_link,chart_number) {
+    d3.csv(csv_link).then(function(data) {
         
         const states = ["WA","NT","NSW","ACT","VIC","TAS","QLD","SA"] //page links for each states
-        // console.log(window.location.pathname);
 
-        const link_string = window.location.pathname;
+        const link_string = window.location.pathname; //get the path name of the current page
 
-        // data.forEach((element) => {
-        //     Year.push(Date.parse(element["Year"]));
-        // })
-
-        a_boolean = true;
-        i = 0;
-        while (a_boolean) {
+        loop = states.length; //for while loop
+        i = 0; //for looping array
+        while (loop > i) {
             if (link_string.includes(states[i])) { //check if current page match with state
-                // data.forEach((element) => { //if true, get all data for the state
-                //     Amphetamine.push(parseInt(element[states[i]])); //push data into array, parse into int for d3.max not to get confused
-                // });
-                data.forEach(function(d) {
+                data.forEach(function(d) { //if true, get all data for the year and a state
                     d.Year = +d.Year;
                     d.Value = +d[states[i]];
                 })
-                a_boolean = false;
             }
-            i++;
+            i++; //add 1 for looping through array 
         }
         dataset = data;
-        // console.log(Amphetamine);
-        // console.log(d3.max(Amphetamine));
+        console.log(dataset);
 
-        // console.log(Year);
-
-        barChart(dataset);
+        barChart(dataset,chart_number);
     })
 }
 
-function barChart(dataset) {
+function barChart(dataset,chart_number) {
     var w = 500;
     var h = 500;
     var padding = 50;
@@ -53,7 +46,7 @@ function barChart(dataset) {
     var xScale = d3.scaleBand() //ordinal scale
 					.domain(Year) //calculate the range of the domain
 					.rangeRound([padding,w]) //range + round numbers
-					.paddingInner(0.08); //generate a padding value of 5% of the band width
+					.paddingInner(0.08); //padding between the bar
 
 	var yScale = d3.scaleLinear() //quantitative
 					.domain([0,d3.max(Amphetamine)])
@@ -71,7 +64,7 @@ function barChart(dataset) {
                     .ticks(10)
                     .scale(yScaleForAxis);
 
-    var svg = d3.select("#chart")
+    var svg = d3.select(`#chart${chart_number}`)
                 .append("svg")
                 .attr("width",w+padding)
                 .attr("height",h+padding);
@@ -91,7 +84,7 @@ function barChart(dataset) {
 			return yScale(d);
 		})
         .style("fill",function(d,i) {
-            return "blue";
+            return `rgb(60,75,150)`;
         });
 
     svg.append("g") //draw X axis
