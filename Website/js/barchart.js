@@ -1,8 +1,12 @@
 function init() {
     //csv file link, chart number
-    get_CSV_data("csv/AusAmphetamine_C.csv",1);
+    get_CSV_data("csv/AusAmphetamine.csv",1);
 
-    get_CSV_data("csv/AusCannabis_C.csv",2);
+    get_CSV_data("csv/AusCannabis.csv",2);
+
+    get_CSV_data("csv/AusNonOpioids.csv",3);
+
+    get_CSV_data("csv/AusOpioid.csv",4);
 }
 
 function get_CSV_data(csv_link,chart_number) {
