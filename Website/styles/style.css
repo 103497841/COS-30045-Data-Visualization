@@ -8,8 +8,7 @@
     --banner-bg: rgba(30, 60, 120, .5);
 
     --text-color: #fff;
-
-    --footer-bg: rgba(30, 60, 120, .5);
+    --text-size: 1.2em;
 }
 
 /* Mobile */
@@ -18,6 +17,11 @@ body {
     background: var(--body-bg);
     color: var(--text-color);
     overflow-x: hidden; /*hide horizontal scroll*/
+}
+
+p {
+    font-size: var(--text-size);
+    line-height: 2em;
 }
 
 
@@ -183,9 +187,10 @@ header {
 
 
 footer {
-    background-color: var(--footer-bg);
+    background-color: var(--banner-bg);
+    text-align: center;
+    font-weight: bold;
 }
-
 
 /* Desktop */
 @media (min-width: 768px) {
