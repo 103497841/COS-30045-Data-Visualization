@@ -1,4 +1,5 @@
 function init() {
+
     //csv file link, chart number
     get_CSV_data("csv/AusAmphetamine.csv",1);
 
@@ -28,7 +29,6 @@ function get_CSV_data(csv_link,chart_number) {
             i++; //add 1 for looping through array 
         }
         dataset = data;
-        console.log(dataset);
 
         barChart(dataset,chart_number);
     })
@@ -87,9 +87,28 @@ function barChart(dataset,chart_number) {
 		.attr("height",function(d) {
 			return yScale(d);
 		})
-        .style("fill",function(d,i) {
-            return `rgb(60,75,150)`;
-        });
+        .attr("fill","rgb(60,75,150)")
+        .on("mouseover",function(d,i) {
+            var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.bandwidth() / 2;
+			var yPosition = parseFloat(d3.select(this).attr("y")) + 16;
+		
+			//tooltip label
+			svg.append("text")
+				.attr("id","tooltip")
+				.attr("text-anchor","middle")
+				.attr("x",xPosition)
+				.attr("y",yPosition)
+				.text(d);
+
+			d3.select(this)
+				.attr("fill","orange");
+
+            chartSideText(d,i+2015);
+        })
+        .on("mouseout",function(d) {
+			d3.select("#tooltip").remove();
+			d3.select(this).attr("fill","rgb(60,75,150)")
+		});
 
     svg.append("g") //draw X axis
         .attr("transform","translate(0, "+ (h) +")")
@@ -101,3 +120,50 @@ function barChart(dataset,chart_number) {
 }
 
 window.onload = init();
+
+
+function showChart(chart) {
+    //set and reset data text at the side
+    document.getElementById("chart-drug").innerHTML = `Drug: ${chart}`;
+    document.getElementById("chart-year").innerHTML = `Year: `;
+    document.getElementById("chart-total").innerHTML = `Total: `;
+
+    //show or hide chart based on radio
+    switch(chart) {
+        case "Amphetamine":
+            document.getElementById("chart1").style.display = "inline";
+            document.getElementById("chart2").style.display = "none";
+            document.getElementById("chart3").style.display = "none";
+            document.getElementById("chart4").style.display = "none";
+            break;
+
+        case "Cannabis":
+            document.getElementById("chart1").style.display = "none";
+            document.getElementById("chart2").style.display = "inline";
+            document.getElementById("chart3").style.display = "none";
+            document.getElementById("chart4").style.display = "none";
+            break;
+
+        case "Non-Opioids":
+            document.getElementById("chart1").style.display = "none";
+            document.getElementById("chart2").style.display = "none";
+            document.getElementById("chart3").style.display = "inline";
+            document.getElementById("chart4").style.display = "none";
+            break;
+
+        case "Opioids":
+            document.getElementById("chart1").style.display = "none";
+            document.getElementById("chart2").style.display = "none";
+            document.getElementById("chart3").style.display = "none";
+            document.getElementById("chart4").style.display = "inline";
+
+            break;
+    }
+}
+
+
+function chartSideText(d,i) {
+    //triggers when chart is hovered
+    document.getElementById("chart-year").innerHTML = `Year: ${i}`;
+    document.getElementById("chart-total").innerHTML = `Total: ${d}`;
+}

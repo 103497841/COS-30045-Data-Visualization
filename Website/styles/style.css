@@ -154,14 +154,13 @@ header {
 }
 
 
-.header-text, .banner, footer { /*content padding*/
+.header-text, .banner, .chart-radio-banner, footer { /*content padding*/
     padding: 1rem 10%;
 }
 
 
 .banner {
     background-color: var(--banner-bg);
-    
 }
 
 .banner p {
@@ -177,12 +176,35 @@ header {
 }
 
 
-.chart-title {
+.chart-radio-banner {
+    background-color: var(--banner-bg);
     text-align: center;
 }
 
-.chart {
+.chart-main-container {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.chart-visual-container {
     text-align: center;
+}
+
+#chart2, #chart3, #chart4 {
+    display: none;
+}
+
+.chart-side-text {
+    margin: 2em 0 2em 2em; /*top, right, bottom, left*/
+    padding: 2em;
+    border-radius: 10vh 0 0 10vh;
+    background-color: var(--banner-bg);
+
+    height: fit-content;
+}
+
+.chart-side-text p {
+    /* height: 1em; */
 }
 
 
