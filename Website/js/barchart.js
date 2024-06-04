@@ -78,7 +78,7 @@ function barChart(dataset,chart_number) {
         .enter()
         .append("rect")
         .attr("x",function(d,i) {
-			return xScale(Year[i]);
+			return xScale(Year[i])+padding/2;
 		})
 		.attr("y",function(d) {
 			return h - yScale(d);
@@ -98,10 +98,11 @@ function barChart(dataset,chart_number) {
 				.attr("text-anchor","middle")
 				.attr("x",xPosition)
 				.attr("y",yPosition)
+                .attr("fill","white")
 				.text(d);
 
 			d3.select(this)
-				.attr("fill","orange");
+				.attr("fill","rgb(80,100,200)");
 
             chartSideText(d,i+2015);
         })
@@ -111,12 +112,33 @@ function barChart(dataset,chart_number) {
 		});
 
     svg.append("g") //draw X axis
-        .attr("transform","translate(0, "+ (h) +")")
+        .attr("transform","translate("+ (padding/2) +","+ (h) +")")
+        .style("font-size","1.2em")
         .call(xAxis);
 
     svg.append("g") //draw Y axis
-        .attr("transform","translate("+ (padding) +",0)")
+        .attr("transform","translate("+ (padding+padding/2) +", 0)")
+        .style("font-size","1.2em")
         .call(yAxis);
+
+    svg.append("text")
+        .attr("text-anchor","middle")
+        .attr("x",w/2+padding)
+        .attr("y",h+padding)
+        .attr("fill","white")
+        .style("font-size","1.4em")
+        .style("font-weight","bold")
+        .text("Year");
+
+    svg.append("text")
+        .attr("text-anchor","middle")
+        .attr("x",-w/2)
+        .attr("y",padding/2+padding/4)
+        .attr("transform", "rotate(-90)")
+        .attr("fill","white")
+        .style("font-size","1.4em")
+        .style("font-weight","bold")
+        .text("Total");
 }
 
 window.onload = init();

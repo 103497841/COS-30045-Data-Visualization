@@ -181,9 +181,12 @@ header {
     text-align: center;
 }
 
+.radio-label {
+    font-size: var(--text-size);
+}
+
 .chart-main-container {
     display: grid;
-    grid-template-columns: 60% 40%;
 }
 
 .chart-visual-container {
@@ -237,5 +240,9 @@ footer {
 
         background-color: transparent; /* remove background from mobile mode */
         transition: none; /* remove transition from mobile mode */
+    }
+
+    .chart-main-container {
+        grid-template-columns: 60% 40%;
     }
 }
