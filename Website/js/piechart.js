@@ -72,7 +72,7 @@ function piechart(dataset,chart_no) {
     var g = svg.selectAll("path")
         .data(pie(d3.entries(dataset)));
         
-    g.enter()
+    g.enter() //pie chart
         .append('path')
         .attr('d',function(d,i) {
             return arc(d,i);
@@ -96,7 +96,7 @@ function piechart(dataset,chart_no) {
         .attr("stroke", "black")
         .style("stroke-width", "0.2em");
 
-    g.enter()
+    g.enter() //pie chart data text
         .append("text")
         .attr("text-anchor","middle")
         .text(function(d) {
