@@ -179,6 +179,10 @@ header {
 .chart-radio-banner {
     background-color: var(--banner-bg);
     text-align: center;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    row-gap: 1em;
 }
 
 .radio-label {
@@ -193,7 +197,7 @@ header {
     text-align: center;
 }
 
-#chart2, #chart3, #chart4 {
+#chart2, #chart3, #chart4, #chart5, #chart6 {
     display: none;
 }
 
@@ -206,8 +210,13 @@ header {
     height: fit-content;
 }
 
-.chart-side-text p {
-    /* height: 1em; */
+.chart-side-text > h2 {
+    text-align: center;
+}
+
+#chart-side-legend1, #chart-side-legend2, #chart-side-legend3, #chart-side-legend4, #chart-side-legend5, #chart-side-legend6 {
+    border-radius: 100vh;
+    text-align: center;
 }
 
 

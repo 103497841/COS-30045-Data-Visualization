@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Yong Yuan Chong">
+
+	<title>1</title>
+    <link rel="icon" href="images/swinburne.png">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <script src="//d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <script src="js/nav-main.js"></script>
+
+    <br>
+
+    <section class="banner">
+        <script src="js/nav-sub.js"></script>
+    </section>
+
+    <br>
+
+    <main>
+        <section class="banner">
+            <p>Male and Female Drinking</p>
+        </section>
+
+        <br>
+
+        <div class="chart-radio-banner">
+            <div>
+                <input type="radio" id="MaleDrinking2016" name="drugs" onclick="showChart('Male Drinking 2016')" checked>
+                <label class="radio-label" for="MaleDrinking2016">Male Drinking 2016</label>
+            </div>
+            <div>
+                <input type="radio" id="MaleDrinking2019" name="drugs" onclick="showChart('Male Drinking 2019')">
+                <label class="radio-label" for="MaleDrinking2019">Male Drinking 2019</label>
+            </div>
+            <div>
+                <input type="radio" id="MaleDrinking2022" name="drugs" onclick="showChart('Male Drinking 2022')">
+                <label class="radio-label" for="MaleDrinking2022">Male Drinking 2022</label>
+            </div>
+            <div>
+                <input type="radio" id="FemaleDrinking2016" name="drugs" onclick="showChart('Female Drinking 2016')">
+                <label class="radio-label" for="FemaleDrinking2016">Female Drinking 2016</label>
+            </div>
+            <div>
+                <input type="radio" id="FemaleDrinking2019" name="drugs" onclick="showChart('Female Drinking 2019')">
+                <label class="radio-label" for="FemaleDrinking2019">Female Drinking 2019</label>
+            </div>
+            <div>
+                <input type="radio" id="FemaleDrinking2022" name="drugs" onclick="showChart('Female Drinking 2022')">
+                <label class="radio-label" for="FemaleDrinking2022">Female Drinking 2022</label>
+            </div>
+        </div>
+
+        <div class="chart-main-container">
+            <div class="chart-visual-container">
+                <div id="chart1">
+                    <h2>Male Drinking 2016</h2>
+                </div>
+
+                <div id="chart2">
+                    <h2>Male Drinking 2019</h2>
+                </div>
+
+                <div id="chart3">
+                    <h2>Male Drinking 2022</h2>
+                </div>
+
+                <div id="chart4">
+                    <h2>Female Drinking 2016</h2>
+                </div>
+
+                <div id="chart5">
+                    <h2>Female Drinking 2019</h2>
+                </div>
+
+                <div id="chart6">
+                    <h2>Female Drinking 2022</h2>
+                </div>
+            </div>
+
+            <div>
+                <div class="chart-side-text">
+                    <h2 id="chart-side-title">Male Drinking 2016</h2>
+                    <p id="chart-side-status">Status: </p>
+                    <p id="chart-side-total">Total: </p>
+                </div>
+
+                <div class="chart-side-text">
+                    <h2>Legend</h2>
+                    <p id="chart-side-legend1"></p>
+                    <p id="chart-side-legend2"></p>
+                    <p id="chart-side-legend3"></p>
+                    <p id="chart-side-legend4"></p>
+                    <p id="chart-side-legend5"></p>
+                    <p id="chart-side-legend6"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <br>
+
+    <script src="js/footer.js"></script>
+    <script src="js/piechart.js"></script>
+</body>
+</html>
