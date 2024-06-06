@@ -252,6 +252,6 @@ footer {
     }
 
     .chart-main-container {
-        grid-template-columns: 60% 40%;
+        grid-template-columns: 65% 35%;
     }
 }

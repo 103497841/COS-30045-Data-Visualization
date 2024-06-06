@@ -66,7 +66,8 @@ function piechart(dataset,chart_no) {
         })
         .sort(function(a, b) { //same order as per csv file
             return d3.ascending(a.key,0);
-        });
+        })
+        .padAngle(0.015);
 
     // map data
     var g = svg.selectAll("path")
@@ -84,17 +85,19 @@ function piechart(dataset,chart_no) {
         })
         .on("mouseover",function(d) {
 			d3.select(this)
-                .attr("fill","rgb(80,100,200)");
+                .attr("fill","#88bb44")
+                .attr("stroke", "white")
+                .style("stroke-width", "0.2em");;
             
             chartSideText(d.data.key, d.data.value); //return to create hover data text, data value
         })
         .on("mouseout",function(d) {
-			d3.select(this).attr("fill", function(d){
+			d3.select(this)
+            .attr("fill", function(d){
                 return(color(d.data.key))
-            });
+            })
+            .style("stroke-width", "0");;
 		})
-        .attr("stroke", "black")
-        .style("stroke-width", "0.2em");
 
     g.enter() //pie chart data text
         .append("text")

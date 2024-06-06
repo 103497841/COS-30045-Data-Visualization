@@ -1,191 +1,185 @@
 function init() {
+    const link_string = window.location.pathname;
 
-    //csv file link, chart number
-    get_CSV_data("csv/AusAmphetamine.csv",1);
-
-    get_CSV_data("csv/AusCannabis.csv",2);
-
-    get_CSV_data("csv/AusNonOpioids.csv",3);
-
-    get_CSV_data("csv/AusOpioid.csv",4);
+    if (link_string.includes("Smoke")) {
+        get_CSV_data("csv/SmokeAge15_2016.csv",1);
+        get_CSV_data("csv/SmokeAge15_2019.csv",2);
+        get_CSV_data("csv/SmokeAge15_2022.csv",3);
+    } else if (link_string.includes("Alcohol")) {
+        get_CSV_data("csv/AlcoholAge15_2016.csv",1);
+        get_CSV_data("csv/AlcoholAge15_2019.csv",2);
+        get_CSV_data("csv/AlcoholAge15_2022.csv",3);
+    }
 }
 
 function get_CSV_data(csv_link,chart_number) {
+    // Load the data
     d3.csv(csv_link).then(function(data) {
-        
-        const states = ["WA","NT","NSW","ACT","VIC","TAS","QLD","SA"] //page links for each states
+        // List of subgroups (gender)
+        subgroups = ["Male", "Female"];
 
-        const link_string = window.location.pathname; //get the path name of the current page
+        // List of groups (statuses)
+        groups = data.map(function(d) {
+            return d.Status
+        });
 
-        loop = states.length; //for while loop
-        i = 0; //for looping array
-        while (loop > i) {
-            if (link_string.includes(states[i])) { //check if current page match with state
-                data.forEach(function(d) { //if true, get all data for the year and a state
-                    d.Year = +d.Year;
-                    d.Value = +d[states[i]];
-                })
-            }
-            i++; //add 1 for looping through array 
-        }
-        dataset = data;
-
-        barChart(dataset,chart_number);
-    })
+        barchart(subgroups, groups, data, chart_number);
+    });
 }
 
-function barChart(dataset,chart_number) {
-    var w = 500;
-    var h = 500;
-    var padding = 50;
+function barchart(subgroups, groups, data, chart_number) {
+    w = 750;
+    h = 500;
+    padding = 50;
 
-    var Year = dataset.map(function(d) {
-        return d.Year;
-      });
-  
-    var Amphetamine = dataset.map(function(d) {
-        return d.Value;
-      });
+    // Append the SVG object to the body
+    var svg = d3.select(`#chart${chart_number}`).append("svg")
+                    .attr("width", w + padding)
+                    .attr("height", h + padding)
+                    .append("g");
 
-    var xScale = d3.scaleBand() //ordinal scale
-					.domain(Year) //calculate the range of the domain
-					.rangeRound([padding,w]) //range + round numbers
-					.paddingInner(0.08); //padding between the bar
+    xScale = d3.scaleBand()
+                .domain(groups)
+                .range([padding, w])
+                .padding([0.2]);
 
-	var yScale = d3.scaleLinear() //quantitative
-					.domain([0,d3.max(Amphetamine)])
-					.range([0,h]);
+    yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, function(d) {
+                    return Math.max(d.Male, d.Female)
+                })])
+                .range([h, 0]);
 
-    var yScaleForAxis = d3.scaleLinear() //quantitative
-					.domain([0,d3.max(Amphetamine)])
-					.range([h,0]);
-    
-    var xAxis = d3.axisBottom()
-                    .ticks(10)
-                    .scale(xScale);
+    // Scale for subgroup
+    xSubgroup = d3.scaleBand()
+                        .domain(subgroups)
+                        .range([0, xScale.bandwidth()])
+                        .paddingInner([0.1]);
 
-    var yAxis = d3.axisLeft()
-                    .ticks(10)
-                    .scale(yScaleForAxis);
+    color = d3.scaleOrdinal()
+                    .domain(subgroups)
+                    .range(["#3366cc", "#cc3366"]);
 
-    var svg = d3.select(`#chart${chart_number}`)
-                .append("svg")
-                .attr("width",w+padding)
-                .attr("height",h+padding);
-
-    svg.selectAll("rect")
-        .data(Amphetamine)
+    // Bars
+    svg.append("g")
+        .selectAll("g")
+        .data(data)
+        .enter()
+        .append("g")
+        .attr("transform", function(d) {
+            return `translate(${xScale(d.Status)},${padding/10})`
+        })
+        .selectAll("rect")
+        .data(function(d) {
+            return subgroups.map(function(dd) {
+                return ({status: d.Status, gender: dd, value: d[dd]})
+            })
+        })
         .enter()
         .append("rect")
-        .attr("x",function(d,i) {
-			return xScale(Year[i])+padding/2;
-		})
-		.attr("y",function(d) {
-			return h - yScale(d);
-		})
-		.attr("width", xScale.bandwidth())
-		.attr("height",function(d) {
-			return yScale(d);
-		})
-        .attr("fill","rgb(60,75,150)")
+        .attr("x", function(d) {
+            console.log(d);
+            return xSubgroup(d.gender)+padding;
+        })
+        .attr("y", function(d) {
+            return yScale(d.value);
+        })
+        .attr("width", xSubgroup.bandwidth())
+        .attr("height", function(d) {
+            return h - yScale(d.value)
+        })
+        .attr("fill", function(d,i) {
+            chartSideColor(d.gender,color(d.gender),i+1);
+            return color(d.gender)
+        })
         .on("mouseover",function(d,i) {
-            var xPosition = parseFloat(d3.select(this).attr("x")) + xScale.bandwidth() / 2;
-			var yPosition = parseFloat(d3.select(this).attr("y")) + 16;
-		
-			//tooltip label
-			svg.append("text")
-				.attr("id","tooltip")
-				.attr("text-anchor","middle")
-				.attr("x",xPosition)
-				.attr("y",yPosition)
-                .attr("fill","white")
-				.text(d);
 
 			d3.select(this)
-				.attr("fill","rgb(80,100,200)");
+				.attr("fill","#88bb44")
+                .attr("stroke", "white")
+                .style("stroke-width", "0.2em");
 
-            chartSideText(d,i+2015);
+            chartSideText(d.gender,d.status,d.value);
         })
         .on("mouseout",function(d) {
-			d3.select("#tooltip").remove();
-			d3.select(this).attr("fill","rgb(60,75,150)")
+			d3.select(this)
+            .attr("fill", function(d) {
+                return color(d.gender)
+            })
+            .style("stroke-width", "0");
 		});
 
-    svg.append("g") //draw X axis
-        .attr("transform","translate("+ (padding/2) +","+ (h) +")")
-        .style("font-size","1.2em")
-        .call(xAxis);
+    // draw X axis
+    svg.append("g")
+        .attr("transform", "translate("+ (padding) +","+ (h+padding/10) +")")
+        .style("font-size","0.9em")
+        .call(d3.axisBottom(xScale));
 
-    svg.append("g") //draw Y axis
-        .attr("transform","translate("+ (padding+padding/2) +", 0)")
-        .style("font-size","1.2em")
-        .call(yAxis);
+    // draw Y Axis
+    svg.append("g")
+        .attr("transform","translate("+ (padding*2) +","+ padding/10 +")")
+        .style("font-size","0.9em")
+        .call(d3.axisLeft(yScale));
 
+    // X Axis label
     svg.append("text")
-        .attr("text-anchor","middle")
+        .attr("text-anchor", "middle")
         .attr("x",w/2+padding)
-        .attr("y",h+padding)
+        .attr("y",h+padding/1.1)
         .attr("fill","white")
-        .style("font-size","1.4em")
         .style("font-weight","bold")
-        .text("Year");
+        .text("Smoking Status");
 
+    // Y Axis label
     svg.append("text")
-        .attr("text-anchor","middle")
-        .attr("x",-w/2)
-        .attr("y",padding/2+padding/4)
+        .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
+        .attr("x", -w/3)
+        .attr("y", padding/2)
         .attr("fill","white")
-        .style("font-size","1.4em")
         .style("font-weight","bold")
-        .text("Total");
+        .text("Number of People");
 }
-
-window.onload = init();
-
 
 function showChart(chart) {
     //set and reset data text at the side
-    document.getElementById("chart-drug").innerHTML = `Drug: ${chart}`;
-    document.getElementById("chart-year").innerHTML = `Year: `;
-    document.getElementById("chart-total").innerHTML = `Total: `;
+    document.getElementById("chart-side-title").innerHTML = `${chart}`;
+    document.getElementById("chart-side-gender").innerHTML = `Gender: `;
+    document.getElementById("chart-side-status").innerHTML = `Status: `;
+    document.getElementById("chart-side-total").innerHTML = `Total: `;
 
     //show or hide chart based on radio
-    switch(chart) {
-        case "Amphetamine":
+    switch(true) {
+        case ((chart == "Age 15+ Smoking 2016") || (chart == "Age 15+ Drinking 2016")):
             document.getElementById("chart1").style.display = "inline";
             document.getElementById("chart2").style.display = "none";
             document.getElementById("chart3").style.display = "none";
-            document.getElementById("chart4").style.display = "none";
             break;
 
-        case "Cannabis":
+            case ((chart == "Age 15+ Smoking 2019") || (chart == "Age 15+ Drinking 2019")):
             document.getElementById("chart1").style.display = "none";
             document.getElementById("chart2").style.display = "inline";
             document.getElementById("chart3").style.display = "none";
-            document.getElementById("chart4").style.display = "none";
             break;
 
-        case "Non-Opioids":
+            case ((chart == "Age 15+ Smoking 2022") || (chart == "Age 15+ Drinking 2022")):
             document.getElementById("chart1").style.display = "none";
             document.getElementById("chart2").style.display = "none";
             document.getElementById("chart3").style.display = "inline";
-            document.getElementById("chart4").style.display = "none";
-            break;
-
-        case "Opioids":
-            document.getElementById("chart1").style.display = "none";
-            document.getElementById("chart2").style.display = "none";
-            document.getElementById("chart3").style.display = "none";
-            document.getElementById("chart4").style.display = "inline";
-
             break;
     }
 }
 
 
-function chartSideText(d,i) {
+function chartSideText(g,s,t) {
     //triggers when chart is hovered
-    document.getElementById("chart-year").innerHTML = `Year: ${i}`;
-    document.getElementById("chart-total").innerHTML = `Total: ${d}`;
+    document.getElementById("chart-side-gender").innerHTML = `Gender: ${g}`;
+    document.getElementById("chart-side-status").innerHTML = `Status: ${s}`;
+    document.getElementById("chart-side-total").innerHTML = `Total: ${t}`;
 }
+
+function chartSideColor(text,color,num) { //side banner 2 (legend)
+    document.getElementById(`chart-side-legend${num}`).innerHTML = `${text}`;
+    document.getElementById(`chart-side-legend${num}`).style.background = color;
+}
+
+window.onload = init();
