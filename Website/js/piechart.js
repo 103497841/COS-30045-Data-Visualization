@@ -87,8 +87,8 @@ function piechart(dataset,chart_no) {
 			d3.select(this)
                 .attr("fill","#88bb44")
                 .attr("stroke", "white")
-                .style("stroke-width", "0.2em");;
-            
+                .style("stroke-width", "0.2em");
+
             chartSideText(d.data.key, d.data.value); //return to create hover data text, data value
         })
         .on("mouseout",function(d) {

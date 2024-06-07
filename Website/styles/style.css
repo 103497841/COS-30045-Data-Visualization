@@ -3,6 +3,7 @@
 
     --nav-bg: rgba(30, 60, 120, .5);
     --nav-current-bg: #246;
+    --nav-normal-bg: #369;
     --nav-hover-bg: #47C;
 
     --banner-bg: rgba(30, 60, 120, .5);
@@ -114,14 +115,35 @@ nav {
     row-gap: 1.5rem;
 }
 
+.index-nav-sub {
+    display: grid;
+    margin: 0;
+    padding: 0;
+
+    grid-template-columns: auto auto;
+    /* border-radius: 0;
+    border: 0;
+    padding: 50% 50%;
+    font-size: 4em; */
+}
+
 li {
+    /* height: 5em; */
+    padding: 0;
     list-style: none;
     text-align: center; /*center nav items*/
 }
 
+.index-nav-sub li {
+    /* padding: 30% 30%; */
+    margin: 10%;
+    /* height: fit-content; */
+}
+
 li a {
     border-radius: 100vh;
-    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--nav-normal-bg);
+    padding: 0.8rem 2rem;
     white-space: nowrap; /*make text not go to new line if no space*/
 }
 
@@ -134,8 +156,21 @@ li:has([aria-current="page"]) a { /*nav item current page, aria-current set from
     background-color: var(--nav-current-bg);
 }
 
+.index-nav-sub li a {
+    border-radius: 10vh;
+    padding: 10%;
+    font-size: 4em;
+    
+    background-color: lightgray;
+    color: black;
+}
+
 li a:is(:hover) { /*nav item hover effect*/
     background-color: var(--nav-hover-bg);
+}
+
+.index-nav-sub li a:is(:hover) {
+    /* color: var(--nav-hover-bg); */
 }
 
 
@@ -164,15 +199,12 @@ header {
 }
 
 .banner p {
+    text-align: center;
     margin: 0;
 }
 
-.map-container {
+.banner h1, .banner h2 {
     text-align: center;
-}
-
-#container {
-    width: 50%; /*size of svg display*/
 }
 
 
@@ -227,7 +259,7 @@ footer {
 }
 
 /* Desktop */
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     nav {
         grid-template-columns: 30% 70%;
     }

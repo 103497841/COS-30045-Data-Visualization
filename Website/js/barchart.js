@@ -2,13 +2,13 @@ function init() {
     const link_string = window.location.pathname;
 
     if (link_string.includes("Smoke")) {
-        get_CSV_data("csv/SmokeAge15_2016.csv",1);
-        get_CSV_data("csv/SmokeAge15_2019.csv",2);
-        get_CSV_data("csv/SmokeAge15_2022.csv",3);
+        get_CSV_data("csv/SmokeAge14_2016.csv",1);
+        get_CSV_data("csv/SmokeAge14_2019.csv",2);
+        get_CSV_data("csv/SmokeAge14_2022.csv",3);
     } else if (link_string.includes("Alcohol")) {
-        get_CSV_data("csv/AlcoholAge15_2016.csv",1);
-        get_CSV_data("csv/AlcoholAge15_2019.csv",2);
-        get_CSV_data("csv/AlcoholAge15_2022.csv",3);
+        get_CSV_data("csv/AlcoholAge14_2016.csv",1);
+        get_CSV_data("csv/AlcoholAge14_2019.csv",2);
+        get_CSV_data("csv/AlcoholAge14_2022.csv",3);
     }
 }
 
@@ -150,19 +150,19 @@ function showChart(chart) {
 
     //show or hide chart based on radio
     switch(true) {
-        case ((chart == "Age 15+ Smoking 2016") || (chart == "Age 15+ Drinking 2016")):
+        case ((chart == "Age 14+ Smoking 2016") || (chart == "Age 14+ Drinking 2016")):
             document.getElementById("chart1").style.display = "inline";
             document.getElementById("chart2").style.display = "none";
             document.getElementById("chart3").style.display = "none";
             break;
 
-            case ((chart == "Age 15+ Smoking 2019") || (chart == "Age 15+ Drinking 2019")):
+        case ((chart == "Age 14+ Smoking 2019") || (chart == "Age 14+ Drinking 2019")):
             document.getElementById("chart1").style.display = "none";
             document.getElementById("chart2").style.display = "inline";
             document.getElementById("chart3").style.display = "none";
             break;
 
-            case ((chart == "Age 15+ Smoking 2022") || (chart == "Age 15+ Drinking 2022")):
+        case ((chart == "Age 14+ Smoking 2022") || (chart == "Age 14+ Drinking 2022")):
             document.getElementById("chart1").style.display = "none";
             document.getElementById("chart2").style.display = "none";
             document.getElementById("chart3").style.display = "inline";
