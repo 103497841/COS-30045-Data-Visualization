@@ -1,15 +1,15 @@
 document.write('<nav>');
-    document.write('<figure class="nav-img">');
+    document.write('<figure class="nav-img">'); //image
         document.write('<img src="images/swinburne_logo.png" alt="a">');
     document.write('</figure>');
 
-    document.write('<div class="hamburger">');
+    document.write('<div class="hamburger">'); //hamburger
         document.write('<span class="bar"></span>');
         document.write('<span class="bar"></span>');
         document.write('<span class="bar"></span>');
     document.write('</div>');
 
-    document.write('<ul class="nav-main">');
+    document.write('<ul class="nav-main">'); //nav links
         document.write('<li>');
             document.write('<a href="index.html">Home</a>');
         document.write('</li>');
@@ -28,8 +28,7 @@ document.write('</nav>');
 const hamburger = document.querySelector(".hamburger");
 const nav = document.querySelector(".nav-main");
 
-hamburger.addEventListener("click", () => {
-    console.log("hi");
+hamburger.addEventListener("click", () => { //if clicked on hamburger
     hamburger.classList.toggle("active");
     nav.classList.toggle("active");
 })

@@ -1,11 +1,11 @@
 function init() {
     const link_string = window.location.pathname;
 
-    if (link_string.includes("Smoke")) {
+    if (link_string.includes("Smoke")) { //Tobacco web page
         get_CSV_data("csv/SmokeAge14_2016.csv",1);
         get_CSV_data("csv/SmokeAge14_2019.csv",2);
         get_CSV_data("csv/SmokeAge14_2022.csv",3);
-    } else if (link_string.includes("Alcohol")) {
+    } else if (link_string.includes("Alcohol")) { //Alcohol web page
         get_CSV_data("csv/AlcoholAge14_2016.csv",1);
         get_CSV_data("csv/AlcoholAge14_2019.csv",2);
         get_CSV_data("csv/AlcoholAge14_2022.csv",3);
@@ -87,16 +87,17 @@ function barchart(subgroups, groups, data, chart_number) {
             return h - yScale(d.value)
         })
         .attr("fill", function(d,i) {
-            chartSideColor(d.gender,color(d.gender),i+1);
+            chartSideColor(d.gender,color(d.gender),i+1); //set the colors for the legend
             return color(d.gender)
         })
         .on("mouseover",function(d,i) {
 
 			d3.select(this)
-				.attr("fill","#f88379")
+				.attr("fill","#f88379") //change the color of the chart when hovering
                 .attr("stroke", "white")
                 .style("stroke-width", "0.2em");
 
+            //change the color of the legend when hovering
             document.getElementById(`chart-side-legend${i+1}`).style.background = "#f88379";
 
             chartSideText(d.gender,d.status,d.value);
@@ -104,10 +105,11 @@ function barchart(subgroups, groups, data, chart_number) {
         .on("mouseout",function(d,i) {
 			d3.select(this)
             .attr("fill", function(d) {
-                return color(d.gender)
+                return color(d.gender) //change back the color of the chart after hovering
             })
             .style("stroke-width", "0");
 
+            //change back the color of the legend after hovering
             document.getElementById(`chart-side-legend${i+1}`).style.background = color(d.gender);
 		});
 
@@ -175,11 +177,11 @@ function showChart(chart) {
 }
 
 
-function chartSideText(g,s,t) { //side banner 1 (hover text)
+function chartSideText(gender,status,total) { //side banner 1 (hover text)
     //triggers when chart is hovered
-    document.getElementById("chart-side-gender").innerHTML = `Gender: ${g}`;
-    document.getElementById("chart-side-status").innerHTML = `Status: ${s}`;
-    document.getElementById("chart-side-total").innerHTML = `Total: ${t}`;
+    document.getElementById("chart-side-gender").innerHTML = `Gender: ${gender}`;
+    document.getElementById("chart-side-status").innerHTML = `Status: ${status}`;
+    document.getElementById("chart-side-total").innerHTML = `Total: ${total}`;
 }
 
 function chartSideColor(text,color,num) { //side banner 2 (legend)

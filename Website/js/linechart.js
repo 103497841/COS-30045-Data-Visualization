@@ -1,9 +1,9 @@
 function init() {
     const link_string = window.location.pathname;
 
-    if (link_string.includes("Smoke")) {
+    if (link_string.includes("Smoke")) { //Tobacco web page
         get_CSV_data("csv/SmokePerCapita.csv",1)
-    } else if (link_string.includes("Alcohol")) {
+    } else if (link_string.includes("Alcohol")) { //Alcohol web page
         get_CSV_data("csv/AlcoholPerCapita.csv",1)
     }
 }
@@ -17,7 +17,7 @@ function get_CSV_data(csv_link,chart_number) {
             d.Year = +d.Year;
             d.Total = +d[Total];
 
-            total_data.push(parseInt(d[Total]));
+            total_data.push(parseInt(d[Total])); //bar chart (invisible, only for hovering purposes)
         });
 
         lineChart(data,chart_number,total_data,Total);
@@ -34,16 +34,38 @@ function lineChart(dataset, chart_number, total_data, yText) {
                 .attr("width",w + padding)
                 .attr("height",h + padding);
 
+    //line chart x scale
     xScale = d3.scaleLinear()
                 .domain(d3.extent(dataset, d => d.Year))
                 .range([padding, w]);
 
+    //line chart y scale
     yScale = d3.scaleLinear()
                 .domain([0,d3.max(dataset,function(d) {
                     return d.Total;
                 })
                     ])
                 .range([h-padding,0]);
+
+    //line position
+    line = d3.line()
+            .x(function(d) {
+                return xScale(d.Year);
+            })
+            .y(function(d) {
+                return yScale(d.Total);
+            });
+    
+    //line chart x axis
+    xAxis = d3.axisBottom()
+                .ticks(5)
+                .tickFormat(d3.format("d")) //remove , in year (eg. 2,011 to 2011)
+                .scale(xScale);
+
+    //line chart y axis
+    yAxis = d3.axisLeft()
+                .ticks(10)
+                .scale(yScale);
 
     //bar chart (invisible, only for hovering purposes)
     xBScale = d3.scaleBand() //ordinal scale
@@ -55,24 +77,7 @@ function lineChart(dataset, chart_number, total_data, yText) {
                 .domain([0,d3.max(total_data)])
                 .range([0,h]);
 
-    line = d3.line()
-            .x(function(d) {
-                return xScale(d.Year);
-            })
-            .y(function(d) {
-                return yScale(d.Total);
-            });
-
-    xAxis = d3.axisBottom()
-                .ticks(5)
-                .tickFormat(d3.format("d")) //remove , in year (eg. 2,011 to 2011)
-                .scale(xScale);
-
-    yAxis = d3.axisLeft()
-                .ticks(10)
-                .scale(yScale);
-
-    // line
+    //line chart
     svg.append("path")
         .datum(dataset)
         .attr("class","line")

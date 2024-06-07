@@ -1,14 +1,14 @@
 function init() {
     const link_string = window.location.pathname;
 
-    if (link_string.includes("Smoke")) {
+    if (link_string.includes("Smoke")) { //Tobacco web page
         get_CSV_data("csv/MSmoke2016.csv",1);
         get_CSV_data("csv/MSmoke2019.csv",2);
         get_CSV_data("csv/MSmoke2022.csv",3);
         get_CSV_data("csv/FSmoke2016.csv",4);
         get_CSV_data("csv/FSmoke2019.csv",5);
         get_CSV_data("csv/FSmoke2022.csv",6);
-    } else if (link_string.includes("Alcohol")) {
+    } else if (link_string.includes("Alcohol")) { //Alcohol web page
         get_CSV_data("csv/MAlcohol2016.csv",1);
         get_CSV_data("csv/MAlcohol2019.csv",2);
         get_CSV_data("csv/MAlcohol2022.csv",3);
@@ -51,10 +51,10 @@ function piechart(dataset,chart_no) {
 
     var svg = d3.select(`#chart${chart_no}`)
                 .append("svg")
-                    .attr("width", w)
-                    .attr("height", h)
+                .attr("width", w)
+                .attr("height", h)
                 .append("g")
-                    .attr("transform", "translate(" + w/2 + "," + h/2 + ")"); //center chart
+                .attr("transform", "translate(" + w/2 + "," + h/2 + ")"); //center chart
 
     var arc = d3.arc()
                 .outerRadius(outerRadius)
@@ -79,16 +79,16 @@ function piechart(dataset,chart_no) {
             return arc(d,i);
         })
         .attr('fill', function(d,i){
-            chartSideColor(d.data.key,color(d.data.key),i+1); //return to create legend for pie chart
-
+            chartSideColor(d.data.key,color(d.data.key),i+1); //set the colors for the legend
             return(color(d.data.key))
         })
         .on("mouseover",function(d,i) {
 			d3.select(this)
-                .attr("fill","#f88379")
+                .attr("fill","#f88379") //change the color of the chart when hovering
                 .attr("stroke", "white")
                 .style("stroke-width", "0.2em");
 
+            //change the color of the legend when hovering
             document.getElementById(`chart-side-legend${i+1}`).style.background = "#f88379";
 
             chartSideText(d.data.key, d.data.value); //return to create hover data text, data value
@@ -96,10 +96,11 @@ function piechart(dataset,chart_no) {
         .on("mouseout",function(d,i) {
 			d3.select(this)
             .attr("fill", function(d){
-                return(color(d.data.key))
+                return(color(d.data.key)) //change back the color of the chart after hovering
             })
             .style("stroke-width", "0");;
 
+            //change back the color of the legend after hovering
             document.getElementById(`chart-side-legend${i+1}`).style.background = color(d.data.key);
 		})
 

@@ -1,7 +1,6 @@
 const link_string = window.location.pathname;
 
-
-if (link_string.includes("index")) {
+if (link_string.includes("index")) { //if home page
     document.write('<ul class="index-nav-sub">');
         document.write('<li>');
             document.write('<a href="lineSmoke.html">Tobacco</a>');
@@ -10,7 +9,7 @@ if (link_string.includes("index")) {
             document.write('<a href="lineAlcohol.html">Alcohol</a>');
         document.write('</li>');
     document.write('</ul>');
-} else if (link_string.includes("line")) {
+} else if (link_string.includes("line")) { //if line chart web pages
     document.write('<ul class="nav-sub">');
         document.write('<li>');
             document.write('<a href="lineSmoke.html">Tobacco</a>');
@@ -19,7 +18,7 @@ if (link_string.includes("index")) {
             document.write('<a href="lineAlcohol.html">Alcohol</a>');
         document.write('</li>');
     document.write('</ul>');
-} else if (link_string.includes("bar")) {
+} else if (link_string.includes("bar")) { //if bar chart web pages
     document.write('<ul class="nav-sub">');
         document.write('<li>');
             document.write('<a href="barSmoke.html">Tobacco</a>');
@@ -28,7 +27,7 @@ if (link_string.includes("index")) {
             document.write('<a href="barAlcohol.html">Alcohol</a>');
         document.write('</li>');
     document.write('</ul>');
-} else if (link_string.includes("pie")) {
+} else if (link_string.includes("pie")) { //if pie chart web pages
     document.write('<ul class="nav-sub">');
         document.write('<li>');
             document.write('<a href="pieSmoke.html">Tobacco</a>');
