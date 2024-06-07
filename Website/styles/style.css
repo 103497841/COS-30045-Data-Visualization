@@ -121,23 +121,16 @@ nav {
     padding: 0;
 
     grid-template-columns: auto auto;
-    /* border-radius: 0;
-    border: 0;
-    padding: 50% 50%;
-    font-size: 4em; */
 }
 
 li {
-    /* height: 5em; */
     padding: 0;
     list-style: none;
     text-align: center; /*center nav items*/
 }
 
 .index-nav-sub li {
-    /* padding: 30% 30%; */
     margin: 10%;
-    /* height: fit-content; */
 }
 
 li a {
