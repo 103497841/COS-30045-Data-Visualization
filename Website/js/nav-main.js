@@ -20,7 +20,7 @@ document.write('<nav>');
             document.write('<a href="pieSmoke.html" >Pie Chart</a>');
         document.write('</li>');
         document.write('<li>');
-            document.write('<a href="/" >Line Chart</a>');
+            document.write('<a href="lineSmoke.html" >Line Chart</a>');
         document.write('</li>');
     document.write('</ul>');
 document.write('</nav>');

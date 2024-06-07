@@ -15,6 +15,13 @@ document.write('<ul class="nav-sub">');
         document.write('<li>');
             document.write('<a href="pieAlcohol.html">Alcohol</a>');
         document.write('</li>');
+    } else if (link_string.includes("line")) {
+        document.write('<li>');
+            document.write('<a href="lineSmoke.html">Smoking</a>');
+        document.write('</li>');
+        document.write('<li>');
+            document.write('<a href="lineAlcohol.html">Alcohol</a>');
+        document.write('</li>');
     }
 document.write('</ul>');
 

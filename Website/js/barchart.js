@@ -77,7 +77,6 @@ function barchart(subgroups, groups, data, chart_number) {
         .enter()
         .append("rect")
         .attr("x", function(d) {
-            console.log(d);
             return xSubgroup(d.gender)+padding;
         })
         .attr("y", function(d) {
@@ -111,13 +110,13 @@ function barchart(subgroups, groups, data, chart_number) {
     // draw X axis
     svg.append("g")
         .attr("transform", "translate("+ (padding) +","+ (h+padding/10) +")")
-        .style("font-size","0.9em")
+        .style("font-size","0.8em")
         .call(d3.axisBottom(xScale));
 
     // draw Y Axis
     svg.append("g")
         .attr("transform","translate("+ (padding*2) +","+ padding/10 +")")
-        .style("font-size","0.9em")
+        .style("font-size","0.8em")
         .call(d3.axisLeft(yScale));
 
     // X Axis label
@@ -127,6 +126,7 @@ function barchart(subgroups, groups, data, chart_number) {
         .attr("y",h+padding/1.1)
         .attr("fill","white")
         .style("font-weight","bold")
+        .style("font-size","1.2em")
         .text("Smoking Status");
 
     // Y Axis label
@@ -137,6 +137,7 @@ function barchart(subgroups, groups, data, chart_number) {
         .attr("y", padding/2)
         .attr("fill","white")
         .style("font-weight","bold")
+        .style("font-size","1.2em")
         .text("Number of People");
 }
 
@@ -170,7 +171,7 @@ function showChart(chart) {
 }
 
 
-function chartSideText(g,s,t) {
+function chartSideText(g,s,t) { //side banner 1 (hover text)
     //triggers when chart is hovered
     document.getElementById("chart-side-gender").innerHTML = `Gender: ${g}`;
     document.getElementById("chart-side-status").innerHTML = `Status: ${s}`;
