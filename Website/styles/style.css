@@ -169,11 +169,6 @@ li a:is(:hover) { /*nav item hover effect*/
     background-color: var(--nav-hover-bg);
 }
 
-.index-nav-sub li a:is(:hover) {
-    /* color: var(--nav-hover-bg); */
-}
-
-
 header {
     position: relative; /*Supports the text in position absolute*/
     background-image: url(../images/background.jpeg);
