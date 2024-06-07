@@ -93,18 +93,22 @@ function barchart(subgroups, groups, data, chart_number) {
         .on("mouseover",function(d,i) {
 
 			d3.select(this)
-				.attr("fill","#88bb44")
+				.attr("fill","#f88379")
                 .attr("stroke", "white")
                 .style("stroke-width", "0.2em");
 
+            document.getElementById(`chart-side-legend${i+1}`).style.background = "#f88379";
+
             chartSideText(d.gender,d.status,d.value);
         })
-        .on("mouseout",function(d) {
+        .on("mouseout",function(d,i) {
 			d3.select(this)
             .attr("fill", function(d) {
                 return color(d.gender)
             })
             .style("stroke-width", "0");
+
+            document.getElementById(`chart-side-legend${i+1}`).style.background = color(d.gender);
 		});
 
     // draw X axis

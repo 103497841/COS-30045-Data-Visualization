@@ -83,20 +83,24 @@ function piechart(dataset,chart_no) {
 
             return(color(d.data.key))
         })
-        .on("mouseover",function(d) {
+        .on("mouseover",function(d,i) {
 			d3.select(this)
-                .attr("fill","#88bb44")
+                .attr("fill","#f88379")
                 .attr("stroke", "white")
                 .style("stroke-width", "0.2em");
 
+            document.getElementById(`chart-side-legend${i+1}`).style.background = "#f88379";
+
             chartSideText(d.data.key, d.data.value); //return to create hover data text, data value
         })
-        .on("mouseout",function(d) {
+        .on("mouseout",function(d,i) {
 			d3.select(this)
             .attr("fill", function(d){
                 return(color(d.data.key))
             })
             .style("stroke-width", "0");;
+
+            document.getElementById(`chart-side-legend${i+1}`).style.background = color(d.data.key);
 		})
 
     g.enter() //pie chart data text
